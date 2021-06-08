@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 上传 -->
+</head>
+<style>
+    #box {
+        width: 600px;
+        height: 600px;
+        position: absolute;
+        background-color: black;
+        opacity: 0.5;
+        display: none;
+    }
+</style>
+<body>
+    <div id="app">
+        <div id="box">
+        </div>
+    </div>
+    
+    <script src="./js/game.js"></script>
+    <script src="./js/snake.js"></script>
+    <script src="./js/food.js"></script>       
+    <script src="./js/block.js"></script>
+    <script src="./js/map.js"></script>
+    <script>
+        var app = document.getElementById('app'); 
+        //在游戏中要操作这些元素 所以将这些对象实例传递进来 传递给game
+        var snake = new Snake(
+            ['./img/1.png','./img/2.png','./img/3.png','./img/4.png'],
+            ['./img/5.png'],
+            ['./img/8.png','./img/9.png','./img/6.png','./img/7.png']
+        );
+        var map = new Maps(600, 600, 20, 20, app);
+        var food = new Food(2, 6, "./img/food.jpg");
+        var block = new Block("./img/block.png");
+        var game = new Game(map, food, snake, block);
+        game.init();
+        var box = document.getElementById('box');
+        var num = 1;
+        app.onclick = function() {
+            num++;
+            if (num % 2 == 0) {
+                box.style.display = 'block';
+                clearInterval(game.timebar);
+            }else if (num % 2 == 1) {
+                box.style.display = 'none';
+                game.startGame();
+            }
+        }
+    </script>    
+</body>
+</html>
